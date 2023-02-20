@@ -1,25 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase.js";
+import { Line } from "./components/Line";
+import { SignIn } from "./components/SignIn";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  // 認証の情報を定数に入れる
+  const [user] = useAuthState(auth);
+  // 三項演算子でUSERの中身があるtrueなら<Line />へ、falseなら<SignIn />へ飛ばす
+  return <div>{user ? <Line /> : <SignIn />}</div>;
 }
 
 export default App;
